@@ -3,15 +3,15 @@ library(dplyr)
 library(see)
 library(ggridges)
 library(dplyr)
-# Sample data (you'll need to replace this with your actual data)
+
 set.seed(123)
 setwd('Set working directory')
 #read_file <- './data/Figure2_hallmark_ifna_toR.csv'
 read_file <- './data/Figure2_hallmark_ifnb_toR.csv'
 
 data <- read.delim(read_file, header=T, sep=",")
-#### MAKE PLOT ####
 
+#### MAKE PLOT ####
 hallmark <- head(data$hallmark, 1)
 
 custom_colors <- c(
@@ -38,8 +38,8 @@ max_values <- data %>%
 # Merge max_values back into the original data
 data <- merge(data, max_values, by = c("CellType", "treatment"))
 
-#Give some margin
-max_y_value <- max(data$mean_value) +1#-1.5 #+ 3
+#Set some margin
+max_y_value <- max(data$mean_value) +1
 
 dodge_width <- 1
 
@@ -66,7 +66,7 @@ p <- ggplot(data, aes(x = CellType, y = mean_value, fill = treatment)) +
   ) 
 
 
-print(p)
+p
 
 
 
